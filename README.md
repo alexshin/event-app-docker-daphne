@@ -72,7 +72,3 @@ ones, which include:
 ```bash
 -b 0.0.0.0 --access-log - [your options go here] proj.asgi:channel_layer
 ```
-
-See
-https://github.com/tbeadle/docker-gunicorn/tree/master/samples/django_channels
-for an example that uses this image.
