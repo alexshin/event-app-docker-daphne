@@ -15,7 +15,10 @@ ENV DAPHNE_USER=daphne \
 # Add additional tools and thirdparties
 # Init manager for containers
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
-RUN chmod +x /usr/local/bin/tini
+RUN apt-get update \
+	&& apt-get upgrade -y \
+	&& apt-get install -y apt-utils gosu \
+	&& chmod +x /usr/local/bin/tini
 
 # Entrypoint
 COPY entrypoint.sh /usr/local/bin/
