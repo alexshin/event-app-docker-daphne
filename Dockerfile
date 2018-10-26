@@ -1,5 +1,5 @@
 FROM python:3.7
-LABEL maintainer "Alex Shinkevich <alex.shinkevich@gmail.com>"
+LABEL maintainer="Alex Shinkevich <alex.shinkevich@gmail.com>"
 
 # Packages versions
 ENV TINI_VERSION=v0.18.0 \
