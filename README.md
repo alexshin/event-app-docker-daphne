@@ -1,7 +1,8 @@
 # Docker image for daphne (interface server for Django channels)
 
-See https://github.com/django/daphne/ and
-https://channels.readthedocs.io/en/stable/.
+See https://github.com/django/daphne/ and https://channels.readthedocs.io/en/stable/.
+
+This image is built over https://github.com/tbeadle/docker-daphne repository. Thank you for boilerplate
 
 ## Building the image
 
@@ -21,13 +22,19 @@ To use the image, you will most likely want to create your own Dockerfile that
 looks something like this:
 
 ```
-FROM tbeadle/daphne:1.0.3
-COPY proj/channel_settings.py /home/daphne/proj/
+FROM alexshin/docker-django-asgi-daphne
+
+ENV DAPHNE_PORT=8000
+ENV APP_ASGI_ENTRYPOINT=proj.asgi:channel_layer
+ENV DJANGO_SETTINGS_MODULE=proj.settings
+
+COPY . ${APP_WORKDIR}
+
 # This is only needed if daphne is going to be running behind a proxy like nginx.
 CMD ["--proxy-headers"]
 ```
 
-In this case, `proj/channel_settings.py` is a file that contains the
+In this case, `proj/settings.py` is a file that contains the
 `CHANNEL_LAYERS` setting from your project's `settings.py`.  What I like to do,
 so that my daphne image is as minimal as possible, is create a
 `channel_settings.py` in the same directory as `settings.py` that contains
@@ -70,5 +77,5 @@ The `CMD` contains command-line options to give to daphne besides the default
 ones, which include:
 
 ```bash
--b 0.0.0.0 --access-log - [your options go here] proj.asgi:channel_layer
+-b $DAPHNE_PORT --access-log - [your options go here] $APP_ASGI_ENTRYPOINT
 ```
