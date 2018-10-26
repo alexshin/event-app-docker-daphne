@@ -9,7 +9,8 @@ ENV TINI_VERSION=v0.18.0 \
 # System settings
 ENV DAPHNE_USER=daphne \
 	DAPHNE_PORT=8000 \
-	APP_WORKDIR=/opt/app
+	APP_WORKDIR=/opt/app \
+	APP_ASGI_ENTRYPOINT=proj.asgi:channel_layer
 
 # Add additional tools and thirdparties
 # Init manager for containers
