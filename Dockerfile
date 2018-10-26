@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir \
 		daphne==${DAPHNE_VERSION}
 
 # Some system stuff
-RUN useradd -U ${DAPHNE_USER} \
+RUN useradd -U -m ${DAPHNE_USER} \
 	&& mkdir -p ${APP_WORKDIR} \
 	&& chown -R ${DAPHNE_USER}:${DAPHNE_USER} ${APP_WORKDIR}
 
